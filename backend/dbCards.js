@@ -5,4 +5,6 @@ const cardSchema = new mongoose.Schema({
   imgUrl: String,
 });
 
-export default mongoose.model("cards", cardSchema);
+const Cards = mongoose.model("Cards", cardSchema);
+
+export default Cards;

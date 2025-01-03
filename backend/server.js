@@ -18,25 +18,31 @@ mongoose
     console.log("Database Connected.");
   })
   .catch((error) => {
-    console.log(error);
+    console.log(error.message);
+    res.status(500).json({ message: "Server Error." });
   });
 
 // API Endpoints
-app.get("/dating/cards", (req, res) => {
+app.get("/dating/cards", async (req, res) => {
   try {
-    Cards.find();
+    const cards = await Cards.find({});
+    res.status(200).json({ data: cards });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
+    res.status(500).json({ message: "Server Error." });
   }
 });
 
-app.post("/dating/cards", (req, res) => {
+app.post("/dating/cards", async (req, res) => {
+  const dbCard = req.body;
+  const newCard = new Cards(dbCard);
   try {
-    const dbCard = req.body;
-
-    Cards.create(dbCard);
+    await newCard.save();
+    res.status(200).json({ data: newCard });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
+
+    res.status(500).json({ message: "Server Error." });
   }
 });
 
