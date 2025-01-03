@@ -1,5 +1,6 @@
 import express from "express";
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
+import cors from "cors";
 import Cards from "./dbCards.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -10,6 +11,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // Database Config
 mongoose
@@ -26,7 +28,7 @@ mongoose
 app.get("/dating/cards", async (req, res) => {
   try {
     const cards = await Cards.find({});
-    res.status(200).json({ data: cards });
+    res.status(200).json({ success: true, data: cards });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: "Server Error." });
@@ -38,7 +40,7 @@ app.post("/dating/cards", async (req, res) => {
   const newCard = new Cards(dbCard);
   try {
     await newCard.save();
-    res.status(200).json({ data: newCard });
+    res.status(200).json({ success: true, data: newCard });
   } catch (error) {
     console.log(error.message);
 
