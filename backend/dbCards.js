@@ -1,10 +1,15 @@
 import mongoose from "mongoose";
 
+// Mongo Schema
 const cardSchema = new mongoose.Schema({
-  name: String,
-  imgUrl: String,
+  name: {
+    type: String,
+    required: [true, "Name is required."],
+  },
+  imgUrl: {
+    type: String,
+    required: [true, "Image is required."],
+  },
 });
 
-const Cards = mongoose.model("Cards", cardSchema);
-
-export default Cards;
+export default mongoose.model("Cards", cardSchema);

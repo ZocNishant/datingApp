@@ -5,6 +5,7 @@ import SwipeButtons from "./components/swipe_buttons/SwipeButtons";
 const App = () => {
   return (
     <div>
+      {/* Header */}
       <Header />
       <DatingCards />
       <SwipeButtons />
